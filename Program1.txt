@@ -1,0 +1,37 @@
+CREATE TABLE employee(
+ empno NUMBER PRIMARY KEY,
+ name VARCHAR2(20),
+ designation VARCHAR2(30),
+ gender VARCHAR2(10),
+ age NUMBER,
+ doj DATE,
+ salary NUMBER
+);
+
+INSERT INTO employee VALUES (101,'Arjun','Manager','Male',30,'12-JAN-14',35000);
+INSERT INTO employee VALUES (102,'John','HR','Male',32,'17-APR-15',30000);
+INSERT INTO employee VALUES (103,'Manoj','Clerk','Male',26,'28-MAR-15',28000);
+INSERT INTO employee VALUES (104,'Pooja','Developer','Female',27,'14-APR-15',25000);
+INSERT INTO employee VALUES (105,'Peter','Marketing Manager','Male',35,'01-FEB-15',35000);
+INSERT INTO employee VALUES (106,'Riya','Admin','Female',29,'10-JUN-16',27000);
+INSERT INTO employee VALUES (107,'Aishu','Tester','Female',25,'20-JUL-15',24000);
+INSERT INTO employee VALUES (108,'Yamuna','Clerk','Female',30,'11-JAN-15',31000);
+INSERT INTO employee VALUES (109,'Karthik','Analyst','Male',28,'05-MAY-16',29000);
+INSERT INTO employee VALUES (110,'Sneha','Designer','Female',26,'18-AUG-17',26000);
+
+
+SELECT * FROM employee;
+
+SELECT * FROM employee WHERE salary > 30000;
+select * from employee where empname like '%a';
+
+
+SELECT * FROM employee 
+WHERE salary >= 25000 AND salary <= 35000;
+
+SELECT * FROM employee ORDER BY salary DESC;
+
+
+SELECT * FROM employee WHERE salary > 30000
+UNION
+SELECT * FROM employee WHERE age < 28;
