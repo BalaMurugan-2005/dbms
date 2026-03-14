@@ -1,96 +1,77 @@
- CREATE TABLE Sailors (
- sid NUMBER PRIMARY KEY,
- sname VARCHAR2(14) NOT NULL,
- rating NUMBER,
- age NUMBER );
+CREATE TABLE Sailors (
+sid NUMBER PRIMARY KEY,
+sname VARCHAR2(14) NOT NULL,
+rating NUMBER,
+age NUMBER
+);
 
+CREATE TABLE Boats (
+bid NUMBER PRIMARY KEY,
+bname VARCHAR2(15) NOT NULL,
+color VARCHAR2(10)
+);
 
- CREATE TABLE Boats (
- bid NUMBER PRIMARY KEY,
- bname VARCHAR2(15) NOT NULL,
- color VARCHAR2(10));
+CREATE TABLE Reserves (
+sid NUMBER,
+bid NUMBER,
+day DATE,
+PRIMARY KEY (sid, bid, day),
+FOREIGN KEY (sid) REFERENCES Sailors(sid),
+FOREIGN KEY (bid) REFERENCES Boats(bid)
+);
 
-
- CREATE TABLE Reserves (
- sid NUMBER,
- bid NUMBER,
- day DATE,
- PRIMARY KEY (sid, bid, day),
- FOREIGN KEY (sid) REFERENCES Sailors(sid),
- FOREIGN KEY (bid) REFERENCES Boats(bid) );
-
-
- INSERT INTO Boats (bid, bname, color) VALUES (101, 'Ocean Queen', 'Red');
-
- INSERT INTO Boats (bid, bname, color) VALUES (102, 'Sea Rider', 'Blue');
-
-INSERT INTO Boats (bid, bname, color) VALUES (103, 'Wave Master', 'Green');
-
-
- INSERT INTO Boats (bid, bname, color) VALUES (104, 'Sunset Cruiser', 'Yellow');
-
- INSERT INTO Boats (bid, bname, color) VALUES (105, 'Storm Runner', 'Black');
-
-INSERT INTO Reserves (sid, bid, day)
- 2 VALUES (1, 101, TO_DATE('2025-01-10', 'YYYY-MM-DD'));
-
- INSERT INTO Reserves (sid, bid, day)
- 2 VALUES (1, 102, TO_DATE('2025-01-12', 'YYYY-MM-DD'));
-
- INSERT INTO Reserves (sid, bid, day)
- 2 VALUES (2, 103, TO_DATE('2025-01-11', 'YYYY-MM-DD'));
+INSERT INTO Sailors VALUES (1,'Ravi',7,25);
+INSERT INTO Sailors VALUES (2,'Arun',5,22);
+INSERT INTO Sailors VALUES (3,'Kumar',8,27);
+INSERT INTO Sailors VALUES (4,'Mani',6,24);
 
 
 
-INSERT INTO Reserves (sid, bid, day)
- 2 VALUES (3, 101, TO_DATE('2025-01-15', 'YYYY-MM-DD'));
+INSERT INTO Boats VALUES (101,'Ocean Queen','Red');
+INSERT INTO Boats VALUES (102,'Sea Rider','Blue');
+INSERT INTO Boats VALUES (103,'Wave Master','Green');
+INSERT INTO Boats VALUES (104,'Sunset Cruiser','Yellow');
+INSERT INTO Boats VALUES (105,'Storm Runner','Black');
 
 
-INSERT INTO Reserves (sid, bid, day)
- 2 VALUES (4, 104, TO_DATE('2025-01-16', 'YYYY-MM-DD'));
+INSERT INTO Reserves VALUES (1,101,TO_DATE('2025-01-10','YYYY-MM-DD'));
+INSERT INTO Reserves VALUES (1,102,TO_DATE('2025-01-12','YYYY-MM-DD'));
+INSERT INTO Reserves VALUES (2,103,TO_DATE('2025-01-11','YYYY-MM-DD'));
+INSERT INTO Reserves VALUES (3,101,TO_DATE('2025-01-15','YYYY-MM-DD'));
+INSERT INTO Reserves VALUES (4,104,TO_DATE('2025-01-16','YYYY-MM-DD'));
 
 
-select * from SAILORS;
+SELECT * FROM Sailors;
 
-select * from Boats;
+SELECT * FROM Boats;
 
-select * from RESERVES;	
+SELECT * FROM Reserves;
 
 
 SELECT S.sid, S.sname, B.bname, R.day
- 2 FROM Sailors S
- 3 INNER JOIN Reserves R ON S.sid = R.sid
- 4 INNER JOIN Boats B ON B.bid = R.bid;
+FROM Sailors S
+INNER JOIN Reserves R ON S.sid = R.sid
+INNER JOIN Boats B ON B.bid = R.bid;
 
 
 SELECT S.sid, S.sname, B.bname, R.day
- 2 FROM Sailors S
- 3 LEFT JOIN Reserves R ON S.sid = R.sid
- 4 LEFT JOIN Boats B ON B.bid = R.bid;
+FROM Sailors S
+LEFT JOIN Reserves R ON S.sid = R.sid
+LEFT JOIN Boats B ON B.bid = R.bid;
 
 
 SELECT S.sname, B.bname, R.day
- 2 FROM Sailors S
- 3 RIGHT JOIN Reserves R ON S.sid = R.sid
- 4 RIGHT JOIN Boats B ON B.bid = R.b
+FROM Sailors S
+RIGHT JOIN Reserves R ON S.sid = R.sid
+RIGHT JOIN Boats B ON B.bid = R.bid;
 
 
- SELECT S.sid, S.sname, B.bid, B.bname, R.day
- 2 FROM Sailors S
- 3 FULL OUTER JOIN Reserves R ON S.sid = R.sid
- 4 FULL OUTER JOIN Boats B ON B.bid = R.bid;
-
-SELECT sid, S.sname, R.day
- 2 FROM Sailors S
- 3 NATURAL JOIN Reserves R;
+SELECT S.sid, S.sname, B.bid, B.bname, R.day
+FROM Sailors S
+FULL OUTER JOIN Reserves R ON S.sid = R.sid
+FULL OUTER JOIN Boats B ON B.bid = R.bid;
 
 
-
-
-
-
-
-
-
-
-
+SELECT sid, sname, day
+FROM Sailors
+NATURAL JOIN Reserves;
