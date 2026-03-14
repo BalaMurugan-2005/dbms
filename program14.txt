@@ -1,70 +1,115 @@
- create table tbmarks
-(rno number(3),name varchar(15),mark1 number(3),mark2 number(3), total
-number(3),AVERAGE number(5,2),result varchar(10));
+create table tbmarks
+(
+rno number(3),
+name varchar2(15),
+mark1 number(3),
+mark2 number(3),
+total number(3),
+average number(5,2),
+result varchar2(10)
+);
 
 
 
 
-Create or replace procedure prmarksins (prno in number,pname in varchar,pmark1 in number,
-pmark2 in number)
+create or replace procedure prmarksins
+(
+prno in number,
+pname in varchar2,
+pmark1 in number,
+pmark2 in number
+)
 is
 vtotal number;
 vaverage number;
-vresult varchar(10);
+vresult varchar2(10);
 begin
-vtotal:=pmark1+pmark2
-; vaverage:=vtotal/2;
-if(pmark1>=40 and pmark2>=40) then
-vresult:='Pass';
+
+vtotal := pmark1 + pmark2;
+vaverage := vtotal / 2;
+
+if (pmark1 >= 40 and pmark2 >= 40) then
+    vresult := 'Pass';
 else
-vresult:='Fail';
+    vresult := 'Fail';
 end if;
-insert into tbmarks values(prno,pname,pmark1,pmark2,vtotal,vaverage,vresult);
+
+insert into tbmarks
+values(prno,pname,pmark1,pmark2,vtotal,vaverage,vresult);
+
 commit;
+
 end;
-
-
+/
 
 exec prmarksins(1,'KING',89,90);
-
 exec prmarksins(2,'SCOTT',39,56);
 
+
 select * from tbmarks;
+
+
+
+
+
 
 
 create or replace procedure prmarksupd
-(prno in number, pmark1 in number,pmark2 in number)
+(
+prno in number,
+pmark1 in number,
+pmark2 in number
+)
 is
 vtotal number;
 vaverage number;
-vresult varchar(10);
+vresult varchar2(10);
 begin
-vtotal:=pmark1+pmark2;
-vaverage:=vtotal/2;
-if(pmark1>=40 and pmark2>=40) then
-vresult:='Pass';
-else
-vresult:='Fail';
-end if;
-update tbmarks set
-mark1=pmark1,mark2=pmark2,total=vtotal,average=vaverage, result=vresult
-where rno=prno;
-commit;
-end;
 
+vtotal := pmark1 + pmark2;
+vaverage := vtotal / 2;
+
+if (pmark1 >= 40 and pmark2 >= 40) then
+    vresult := 'Pass';
+else
+    vresult := 'Fail';
+end if;
+
+update tbmarks
+set mark1 = pmark1,
+    mark2 = pmark2,
+    total = vtotal,
+    average = vaverage,
+    result = vresult
+where rno = prno;
+
+commit;
+
+end;
+/
+
+
+exec prmarksupd(2,55,56);
 
 select * from tbmarks;
 
-exec prmarksupd(2,55,56);	
-
- select * from tbmarks;
-
-
-create or replace procedure prmarksdel(prno in number) is
+create or replace procedure prmarksdel
+(
+prno in number
+)
+is
 begin
-delete from tbmarks whererno=prno; commit;
+
+delete from tbmarks
+where rno = prno;
+
+commit;
+
 end;
+/
+
 
 exec prmarksdel(2);
+
 
 select * from tbmarks;
