@@ -1,4 +1,4 @@
-ECLARE
+DECLARE
  string1 VARCHAR2(100) := '&String1';
  string2 VARCHAR2(100) := '';
  i number;
